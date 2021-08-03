@@ -3,6 +3,7 @@ package com.kris.kafka;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,26 +22,11 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.LoggerFactory;
 
 public class App {
-    public static void main(String[] args) {
-        disableLog();
-        try {
-            runProducer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws IOException, URISyntaxException {
+        runProducer();
         runConsumer();
     }
 
-    private static void disableLog() {
-        Set<String> artifactoryLoggers = new HashSet<>(Arrays.asList("org.apache.http", "groovyx.net.http"));
-        for(String log:artifactoryLoggers) {
-            ch.qos.logback.classic.Logger artLogger = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(log);
-            artLogger.setLevel(ch.qos.logback.classic.Level.INFO);
-            artLogger.setAdditive(false);
-        }
-    }
 
     static void runConsumer() {
         Consumer<String, String> consumer = ConsumerCreator.createConsumer();
@@ -48,7 +34,7 @@ public class App {
         int noMessageFound = 0;
 
         while (true) {
-            ConsumerRecords<String, String> consumerRecords = consumer.poll(1000);
+            ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofMillis(1000));
             // 1000 is the time in milliseconds consumer will wait if no record is found at broker.
             if (consumerRecords.count() == 0) {
                 noMessageFound++;
@@ -81,7 +67,7 @@ public class App {
         String line = "";
         int key = 0;
         while ((line = reader.readLine()) != null) {
-           System.out.println(line);
+            System.out.println(line);
             ProducerRecord<String, String> producerRecord = new ProducerRecord<String, String>("try_Buffered3Part", Integer.toString(key), line);
             key++;
             System.out.println(key);
