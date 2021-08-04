@@ -8,9 +8,9 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import java.time.Duration;
 
 public class ConsumerMain {
-    public static void main(String[] args) {
-        runConsumer();
-    }
+//    public static void main(String[] args) {
+//        runConsumer();
+//    }
     static void runConsumer() {
         Consumer<String, String> consumer = ConsumerCreator.createConsumer();
 

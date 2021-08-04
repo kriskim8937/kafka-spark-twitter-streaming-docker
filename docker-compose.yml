@@ -18,3 +18,11 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+#  kafka-producer:
+#    #Uses an image that’s built from the Dockerfile in the current directory.
+#    build: .
+#    depends_on:
+#      - kafka
+
+
+#Service in docker-compose share same network
