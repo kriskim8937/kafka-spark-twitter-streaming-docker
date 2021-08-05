@@ -1,7 +1,9 @@
 package com.kris.kafka.myPac;
 
 public interface IKafkaConstants {
-    public static String KAFKA_BROKERS = "localhost:9092";
+    public static String KAFKA_LOCAL_BROKERS = "localhost:9092";
+
+    public static String KAFKA_BROKERS = "broker:9092";
 
     public static Integer MESSAGE_COUNT=1000;
 

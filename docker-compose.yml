@@ -1,28 +1,45 @@
 version: "3"
+
+networks:
+  rmoff_kafka:
+    name: rmoff_kafka
+
 services:
   zookeeper:
     image: 'bitnami/zookeeper:latest'
     ports:
       - '2181:2181'
+    networks:
+      - rmoff_kafka
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
-  kafka:
+  broker:
     image: 'bitnami/kafka:latest'
     ports:
       - '9092:9092'
+    networks:
+      - rmoff_kafka
     environment:
       - KAFKA_BROKER_ID=1
       - KAFKA_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://broker:9092
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
-#  kafka-producer:
-#    #Uses an image that’s built from the Dockerfile in the current directory.
-#    build: .
-#    depends_on:
-#      - kafka
+
+  producer:
+    #Uses an image that’s built from the Dockerfile in the current directory.
+    image: producer
+    #build: .
+    depends_on:
+      - broker
+    networks:
+      - rmoff_kafka
 
 
 #Service in docker-compose share same network
+
+
+#docker build -t producer .
+#docker run --network=rmoff_kafka --rm --name producer producer
