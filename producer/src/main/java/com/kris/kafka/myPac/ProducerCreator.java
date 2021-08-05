@@ -1,6 +1,5 @@
 package com.kris.kafka.myPac;
 
-import com.kris.kafka.myPac.IKafkaConstants;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;

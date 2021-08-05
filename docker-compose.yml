@@ -7,16 +7,12 @@ networks:
 services:
   zookeeper:
     image: 'bitnami/zookeeper:latest'
-    ports:
-      - '2181:2181'
     networks:
       - rmoff_kafka
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
   broker:
     image: 'bitnami/kafka:latest'
-    ports:
-      - '9092:9092'
     networks:
       - rmoff_kafka
     environment:
@@ -28,9 +24,18 @@ services:
     depends_on:
       - zookeeper
 
-  producer:
+#  producer:
+#    #Uses an image that’s built from the Dockerfile in the current directory.
+#    image: producer
+#    #build: .
+#    depends_on:
+#      - broker
+#    networks:
+#      - rmoff_kafka
+
+  consumer:
     #Uses an image that’s built from the Dockerfile in the current directory.
-    image: producer
+    image: consumer
     #build: .
     depends_on:
       - broker
