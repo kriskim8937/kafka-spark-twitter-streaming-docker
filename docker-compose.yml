@@ -24,14 +24,14 @@ services:
     depends_on:
       - zookeeper
 
-#  producer:
-#    #Uses an image that’s built from the Dockerfile in the current directory.
-#    image: producer
-#    #build: .
-#    depends_on:
-#      - broker
-#    networks:
-#      - rmoff_kafka
+  producer:
+    #Uses an image that’s built from the Dockerfile in the current directory.
+    image: producer
+    #build: .
+    depends_on:
+      - broker
+    networks:
+      - rmoff_kafka
 
   consumer:
     #Uses an image that’s built from the Dockerfile in the current directory.
