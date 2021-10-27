@@ -1,4 +1,4 @@
-# kafka_metamorphosis
+# kafka-spark-twitter-streaming-docker
 Twitter analysis project with kafka, hadoop, kubernetes.
 This repository contains a docker-compose stack with Kafka and Spark Streaming.
 Please Refer to
